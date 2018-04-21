@@ -23,7 +23,7 @@ footer-links:
   flickr:
   github: oleg-py
   instagram:
-  linkedin: oleg.pyzhcov
+  linkedin: oleg-pyzhcov
   pinterest:
   rss: rss # just type anything here for a working RSS icon
   twitter:
@@ -84,5 +84,3 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
-
-remote_theme: "mmistakes/minimal-mistakes"
