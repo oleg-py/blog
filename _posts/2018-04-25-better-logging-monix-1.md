@@ -1,4 +1,7 @@
-# Better logging with Monix 3, part 1: MDC
+---
+layout: post
+title: Better logging with Monix 3, part 1: MDC
+---
 
 ### Problem:
 I want to figure out which log entries belong to which request.
