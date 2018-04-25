@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Better logging with Monix 3, part 1: MDC
+title: Better logging with Monix 3 - MDC
 ---
 
 ### Problem:
