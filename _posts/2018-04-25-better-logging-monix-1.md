@@ -1,8 +1,9 @@
 ---
 layout: post
-title: Better logging with Monix 3 - MDC
+title: "Better logging with Monix 3, part 1: MDC"
 ---
 
+# Better logging with Monix 3, part 1: MDC
 ### Problem:
 I want to figure out which log entries belong to which request.
 
@@ -14,7 +15,7 @@ Also, being a lazy person, I want to get away with as little work as possible. I
 Java SLF4J API already support all this functionality in form of [MDC](https://www.slf4j.org/api/org/slf4j/MDC.html). However, the existing implementations use a `ThreadLocal` variable, which doesn't work if you're not creating a separate thread per each request - which I do not.
 
 ### Solution:
-
+<!--more-->
 Subclass your backend's (Logback here) MDC adapter and override everything to use a `Local`:
 
 ```scala
