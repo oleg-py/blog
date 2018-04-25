@@ -88,15 +88,15 @@ They are both interfaces to the same context, i.e. both `Local` and `TaskLocal` 
 Most of the code above is straightforward, but there's one caveat that you should be aware of. See how I dance with Java's `emptyMap` below:
 
 ```scala
-  private[this] val map = Local[ju.Map[String, String]](ju.Collections.emptyMap())
+private[this] val map = Local[ju.Map[String, String]](ju.Collections.emptyMap())
 
-  override def put(key: String, `val`: String): Unit = {
-    if (map() eq ju.Collections.EMPTY_MAP) {
-      map := new ju.HashMap()
-    }
-    map().put(key, `val`)
-    ()
+override def put(key: String, `val`: String): Unit = {
+  if (map() eq ju.Collections.EMPTY_MAP) {
+    map := new ju.HashMap()
   }
+  map().put(key, `val`)
+  ()
+}
 ```
 
 This is required because default values are not immediately set into the local context. Instead, it happens only on first write - and I mean doing `:=` on local, not mutating the value inside! Had I used a mutable map as a default, it would work like a global variable.
