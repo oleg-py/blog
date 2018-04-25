@@ -105,10 +105,10 @@ This is required because default values are not immediately set into the local c
 
 Monix Local is not yet fleshed out completely. There are bugs in Monix 3.0.0-RC1:
 
-- Using `executeOn` breaks propagation [(ticket)](https://github.com/monix/monix/issues/612)
-  * Workaround: use `Task.shift(ec)` or `Task#asyncBoundary(ec)` for switching execution context
-- Local context might not get cleared properly if mutated before async boundaries [(ticket)](https://github.com/monix/monix/issues/624)
-  * Workaround: perform a `Task.shift` before reading/writing any locals (e.g. in http4s middleware)
+##### Using `executeOn` breaks propagation [(ticket)](https://github.com/monix/monix/issues/612)
+*Workaround:* use `Task.shift(ec)` or `Task#asyncBoundary(ec)` for switching execution context
+##### Local context might not clear if mutated before async boundaries [(ticket)](https://github.com/monix/monix/issues/624)
+*Workaround:* perform a `Task.shift` before reading/writing any locals (e.g. in http4s middleware)
 
 
 ---
