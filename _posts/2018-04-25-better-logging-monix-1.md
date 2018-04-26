@@ -72,7 +72,7 @@ for {
 } yield user
 ```
 
-Read the current issues section.
+Read the important notes section.
 
 ### Explanation
 
@@ -101,16 +101,24 @@ override def put(key: String, `val`: String): Unit = {
 
 This is required because default values are not immediately set into the local context. Instead, it happens only on first write - and I mean doing `:=` on local, not mutating the value inside! Had I used a mutable map as a default, it would work like a global variable.
 
-### Current issues
+### Important notes
 
-Monix Local is not yet fleshed out completely. There are bugs in Monix 3.0.0-RC1:
+By default, local context propagation is disabled! You need to enable it in one of following ways:
+- Applying a transformation `.executeWithOptions(_.enableLocalContextPropagation)` on each `Task` that uses a `Local`
+- Setting system property `monix.environment.localContextPropagation` to `1`
+- Specifying implicit Task.Options and using `runAsyncOpt`.
+
+Monix `Local` is not yet fleshed out completely. There are bugs in Monix 3.0.0-RC1:
 
 ##### Using `executeOn` breaks propagation [(ticket)](https://github.com/monix/monix/issues/612)
 *Workaround:* use `Task.shift(ec)` or `Task#asyncBoundary(ec)` for switching execution context
 ##### Local context might not clear if mutated before async boundaries [(ticket)](https://github.com/monix/monix/issues/624)
 *Workaround:* perform a `Task.shift` before reading/writing any locals (e.g. in http4s middleware)
-
+##### Cats-effect typeclasses do not use `Task.Options` [(ticket)](https://github.com/monix/monix/issues/625)
+The fix for that has already been merged in, but it means that in RC1 you cannot rely on having implicit options if you're using e.g. http4s or something else that requires `Effect` instance. Use one of alternatives I provided above.
 
 ---
 
-As you can see, the local context propagation is very powerful. I'm sure more interesting uses will surface later, but even now we are able to adapt the old-fashioned Java APIs that assume thread-per-request model. Stay tuned for part 2, where I get meaningfull call traces abusing instrumentation because I'm still too lazy to change my business logic for the sake of logging.
+As you can see, the local context propagation is quite powerful and easy to use. I'm sure more interesting uses will surface later, but even now we are able to adapt the old-fashioned Java APIs that assume thread-per-request model.
+
+Stay tuned for part 2, where I get meaningfull call traces abusing instrumentation, because I'm still too lazy to change my business logic for the sake of logging.
