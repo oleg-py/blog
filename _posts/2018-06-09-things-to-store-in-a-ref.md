@@ -2,7 +2,6 @@
 layout: post
 title: "Things to store in a Ref"
 ---
-<!--more-->
 Cats-effect 1.0.0-RC2 is out, and among various improvements, it brought to us some goodies in `cats.effect.concurrent`, exported from fs2 and Monix with a number of changes:
 
 * Ref - pure mutable reference
@@ -12,6 +11,7 @@ Cats-effect 1.0.0-RC2 is out, and among various improvements, it brought to us s
 
 This post will focus on `Ref` and to show what interesting techniques it enables.
 
+<!--more-->
 You'll need these imports to follow along:
 ```scala
 import cats.implicits._
