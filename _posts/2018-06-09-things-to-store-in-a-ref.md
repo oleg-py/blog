@@ -198,7 +198,7 @@ val exec = for {
 println(exec.unsafeRunSync())
 ```
 
-To be precise, this memoizes only successful results. It's also not really safe for concurrent access, but it can be generalized to only require `Sync[F]` constraint. We can make it properly memoize errors by using `.attempt` and `.rethrow` (coming from `MonadError`), and `Semaphore` can help to ensure safe access.
+To be precise, this memoizes only successful results. It's also not really safe for concurrent access*, but it can be generalized to only require `Sync[F]` constraint. We can make it properly memoize errors by using `.attempt` and `.rethrow` (coming from `MonadError`), and `Semaphore` can help to ensure safe access.
 
 ```scala
 def memoize[F[_]: Sync, A](fa: F[A]): F[F[A]] =
@@ -218,7 +218,11 @@ def safeMemoize[F[_]: Async, A](fa: F[A]): F[F[A]] =
   } yield sem.withPermit(mem)
 ```
 
-Another new addition - `Semaphore` - makes an appearance to fix the things. Let me annoy you with a final code snippet to show that everything is indeed working as intended:
+Another new addition - `Semaphore` - makes an appearance to fix the things.
+
+\* **Edit:** All methods provided on `Ref` are safe for concurrent access. However, there's no way - without extra synchronization on top or blocking threads - to provide safe modification of shape `A => F[A]` for arbitrary `F`s.
+
+Let me annoy you with a final code snippet to show that everything is indeed working as intended:
 
 ```scala
 object Boo extends Exception("Boo!")
