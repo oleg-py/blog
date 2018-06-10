@@ -220,7 +220,7 @@ def safeMemoize[F[_]: Async, A](fa: F[A]): F[F[A]] =
 
 Another new addition - `Semaphore` - makes an appearance to fix the things.
 
-\* **Edit:** All methods provided on `Ref` are safe for concurrent access. However, there's no way - without extra synchronization on top or blocking threads - to provide safe modification of shape `A => F[A]` for arbitrary `F`s.
+> \* **Edit:** All methods provided on `Ref` are safe for concurrent access. However, there's no way - without extra synchronization on top or blocking threads - to provide safe modification of shape `A => F[A]` for arbitrary `F`s.
 
 Let me annoy you with a final code snippet to show that everything is indeed working as intended:
 
