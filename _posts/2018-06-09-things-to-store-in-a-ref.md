@@ -25,7 +25,6 @@ import scala.concurrent.ExecutionContext.Implicits.global
 A simplest and most straightforward use of `Ref` is as a mutable state reference:
 
 ```scala
-
 val program = for {
   ref <- Ref[IO].of(1)
   printValue = ref.get.flatMap(i => IO(println(s"Current value is $i")))
@@ -128,7 +127,7 @@ Not too shabby, eh? The interesting property of that construct is that a number 
 
 Mapping values is the most easy and straightforward:
 
-```
+```scala
 val nextString = next.map(_.toString)
 ```
 
