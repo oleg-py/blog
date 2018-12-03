@@ -20,7 +20,7 @@ So, all solutions:
   
 To jumpstart everything, a source sample to start with is provided for each exercise. You are free to change anything, there are no restrictions to code style as long as it is readable. I recommend sticking to provided type signatures / interface structure for those you will be implementing, unless bonuses require you to change these.
 
-To prevent spoilers, post your answers as github repos or gists, and post them in comments or @ me on twitter. Gists are easy to leave comment on, too!
+To prevent spoilers, post your answers as github repos or gists, and post them in comments or @ me on twitter (link in the footer). Gists are easy to leave comment on, too!
 
 ## Worker pool with load balancing
 #### Objective
