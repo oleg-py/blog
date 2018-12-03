@@ -90,7 +90,7 @@ val testPool: IO[WorkerPool[Int, Int]] =
 <details>
 <summary><strong>Show heavy spoilers</strong></summary>
 
-Put free workers into `MVar`. All workers should be free on init. Once they are done processing, _guarantee_ that they put themselves back onto `MVar`. And we need to NOT wait on that `put` to complete, so use `start` and discard the resulting fiber.
+Put free workers into <code>MVar</code>. All workers should be free on init. Once they are done processing, <i>guarantee</i> that they put themselves back onto <code>MVar</code>. And we need to NOT wait on that <code>put</code> to complete, so use <code>start</code> and discard the resulting fiber.
 
 </details>
 </details>
@@ -159,12 +159,12 @@ val methods: NonEmptyList[IO[Data]] = NonEmptyList.of(
 <details>
 <summary><strong>Show hints</strong></summary>
 
-There are two operators we're interested in: `race` and `racePair`. Both run two tasks in parallel, the difference being what happens after one of them is completed. In case of `race`, the loser is automatically cancelled. In case of `racePair`, we get to choose what to do, where the still running process is represented by `Fiber`.
+There are two operators we're interested in: <code>race</code> and <code>racePair</code>. Both run two tasks in parallel, the difference being what happens after one of them is completed. In case of <code>race</code>, the loser is automatically cancelled. In case of <code>racePair</code>, we get to choose what to do, where the still running process is represented by <code>Fiber</code>.
 
 <details>
 <summary><strong>Show heavy spoilers</strong></summary>
 
-Using `racePair`, try folding/reducing the list: race previous result with `attempt`, then, if we got a successful (as in, `Right`) result from one, cancel the other and return the result. Otherwise, fall back to the second one, all while accumulating the errors. The result should be something like `Either[List[Throwable], A]`. Then transform list into an exception and use `.rethrow` to lift it back to `IO`.
+Using <code>racePair</code>, try folding/reducing the list: race previous result with <code>attempt</code>, then, if we got a successful (as in, <code>Right</code>) result from one, cancel the other and return the result. Otherwise, fall back to the second one, all while accumulating the errors. The result should be something like <code>Either[List[Throwable], A]</code>. Then transform list into an exception and use <code>.rethrow</code> to lift it back to <code>IO</code>.
 
 </details>
 </details>
