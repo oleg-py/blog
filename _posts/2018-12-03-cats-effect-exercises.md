@@ -83,9 +83,9 @@ val testPool: IO[WorkerPool[Int, Int]] =
 <details>
 <summary><strong>Show hints</strong></summary>
 <ul>
-<li> Relying on a concurrent queue might be a good idea. And `MVar` is essentially a one-element queue.</li>
-<li> Because our workers are functions of type `A => IO[B]`, we can freely do anything effectful before and after running function.</li>
-<li> Our factory method (`apply` on companion) returns `IO`, too. This lets us create a shared `MVar` and do pre-initialization, if needed.</li>
+  <li> Relying on a concurrent queue might be a good idea. And <code>MVar</code> is essentially a one-element queue.</li>
+  <li> Because our workers are functions of type <code>A => IO[B]</code>, we can freely do anything effectful before and after running function.</li>
+  <li> Our factory method (<code>apply</code> on companion) returns <code>IO</code> too. This lets us create a shared <code>MVar</code> and do pre-initialization, if needed.</li>
 </ul>
 <details>
 <summary><strong>Show heavy spoilers</strong></summary>
