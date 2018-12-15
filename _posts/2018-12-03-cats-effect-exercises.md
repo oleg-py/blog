@@ -108,7 +108,7 @@ for {
   _    <- pool.exec(()).start
   _    <- pool.removeAllWorkers
   _    <- pool.exec(())
-} yield ExitCode.Failure
+} yield ExitCode.Error
 ```
 This code should not terminate. Here, we have removed all workers while one is still running, but that one is eventually returned to the pool. It's not supposed to.
 
