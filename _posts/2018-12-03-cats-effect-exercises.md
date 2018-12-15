@@ -100,6 +100,17 @@ Put free workers into <code>MVar</code>. All workers should be free on init. Onc
 #### Bonus
 - Generalize for any `F` using `Concurrent` typeclass.
 - Add methods to `WorkerPool` interface for adding workers on the fly and removing all workers. If all workers are removed, submitted jobs must wait until one is added.
+*NEW (15/12/2018)* **Note**: A common bug in implementing removal workers can be manifested as such:
+
+```scala
+for {
+  pool <- WorkerPool.of[Unit, Unit](_ => IO.sleep(2.seconds))
+  _    <- pool.exec(()).start
+  _    <- pool.removeAllWorkers
+  _    <- pool.exec(())
+} yield ExitCode.Failure
+```
+This code should not terminate. Here, we have removed all workers while one is still running, but that one is eventually returned to the pool. It's not supposed to.
 
 ## Race for success
 #### Objective
@@ -172,6 +183,7 @@ Using <code>racePair</code>, try folding/reducing the list: race previous result
 </details>
 
 #### Bonus
+- *NEW (15/12/2018)*: Avoid using runtime checking for `CompositeException` (including pattern matching on it).
 - If returned `IO` is cancelled, all in-flight requests should be properly cancelled as well.
 - Refactor function to allow generic effect type to be used, not only cats' `IO`. (e.g. anything with Async or Concurrent instances).
 - Refactor function to allow generic container type to be used (e.g. anything with Traverse or NonEmptyTraverse instances).
