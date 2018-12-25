@@ -33,5 +33,13 @@
       You can add webfonts, meta tags, or analytics to this file.
       The build step will place the bundled scripts into the <body> tag.
     -->
-  <script type="text/javascript" src="frontend-opt-bundle.90d0b41e.js"></script></body>
+
+    <script src="./dependencies-library.js"></script>
+    <script>
+      var exports = window;
+      exports.require = window["appLibrary"].require;
+      var global = window;
+    </script>
+    <script src="./frontend-fastopt-library.js"></script>
+  </body>
 </html>
