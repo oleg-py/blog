@@ -1,4 +1,7 @@
-# Traverse your HLists for fun and profit
+---
+layout: post
+title: "Traverse your HLists for fun and profit"
+---
 
 Surprisingly not mentioned often, there's [Typelevel kittens](https://github.com/typelevel/kittens), a library for typeclass derivation for Cats, which also has few extra things. In particular, there's an ability to `sequence` and `traverse` an HList. It doesn't get enough exposure though, so let's explore few illustrative ways this can be used.
 
