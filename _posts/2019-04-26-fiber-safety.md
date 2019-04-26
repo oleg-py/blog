@@ -6,7 +6,7 @@ title: "Practical fiber safety (and how Concurrent implies Parallel)"
 A short post, for a change.
 
 cats-effect has `start`. And `start` has a problem that is outlined right in its docs [(link)](https://github.com/typelevel/cats-effect/blob/c64be615a980027a778615cd9c90c200e397dc34/core/shared/src/main/scala/cats/effect/IO.scala#L356):
-
+{% raw %}
 ```
 * {{{
 *   def par2[A, B](ioa: IO[A], iob: IO[B]): IO[(A, B)] =
@@ -24,8 +24,9 @@ cats-effect has `start`. And `start` has a problem that is outlined right in its
 * finishes in error. In that case the second task doesn't get canceled,
 * which creates a potential memory leak.
  ```
+{% endraw %}
+That doesn't quite feel right. Especially in presense of cancelable `flatMap`s, it's possible that we end up with a more ugly situation
 <!--more-->
-That doesn't quite feel right. Especially in presense of cancelable `flatMap`s, it's possible that we end up with a more ugly situation:
 ```scala
 fb <- iob.start
 // whole operation gets cancelled there
