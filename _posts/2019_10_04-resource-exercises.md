@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Scala exercises: (ab)using Resource"
+title: "Scala exercises: abusing Resource"
 ---
 
 So, cats-effect has `Resource`. It's nice. Some cats-effect users are considering making a `Resource` fanclub. Why? Well, probably because of some _neat things_ you can do with it, and two exercises here are to help you see what can be done outside of just flat-mapping some library ones and using them in the end.
@@ -18,6 +18,8 @@ There's one unsafe method on Resource, and it's called `allocated`. It gives you
 access to allocator and finalizer directly. In fact, originally `Resource` didn't
 have it - that's how dangerous it is. However, it is required for some advanced
 usages, like embedding a `Resource` into some other datastructure.
+
+<!--more-->
 
 For example, one can imagine a scope that manages lifetime of several resources:
 
