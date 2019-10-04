@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Scala exercises: abusing Resource"
+title: "Scala exercises: (ab)using Resource"
 ---
 
 So, cats-effect has `Resource`. It's nice. Some cats-effect users are considering making a `Resource` fanclub. Why? Well, probably because of some _neat things_ you can do with it, and two exercises here are to help you see what can be done outside of just flat-mapping some library ones and using them in the end.
