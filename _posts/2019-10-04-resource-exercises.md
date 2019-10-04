@@ -35,30 +35,9 @@ object Scope {
 ```
 
 
-The usefulness of that construct is two-fold. First, unlike using `Resource.liftF`, it can
-preserve cancelability of other operations:
-
-```scala
-def foo: IO[Unit] = Scope[F].use { s =>
-  for {
-    socket <- s.open(getSocket)
-    _      <- use(socket)
-  } yield ()
-}
-```
-
-```scala
-def foo: IO[Unit] = {
-  for {
-    socket <- getSocket
-    _      <- Resource.liftF(use(socket)) // will not be cancelable
-  } yield ()
-}.use(IO.pure)
-```
-
-Second, it's easier to write code that both creates and uses Resources, as you can use regular
+With such construct, it's easier to write code that both creates and uses Resources, as you can use regular
 for-comprehension without needing to wrap it in giant braces and call `.use(IO.pure)` at
-the end
+the end:
 
 ```scala
 object Runner extends IOApp {
